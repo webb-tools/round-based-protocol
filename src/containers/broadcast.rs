@@ -127,7 +127,6 @@ impl<M> MessageStore for BroadcastMsgsStore<M> {
             .get_mut(party_j - 1)
             .ok_or(StoreErr::UnknownSender { sender: msg.sender })?;
         if slot.is_some() {
-            log::info!("The message already exists, skipping overwrite");
             //return Err(StoreErr::MsgOverwrite);
             return Ok(());
         }
