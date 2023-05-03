@@ -126,6 +126,10 @@ impl<M> MessageStore for BroadcastMsgsStore<M> {
             .msgs
             .get_mut(party_j - 1)
             .ok_or(StoreErr::UnknownSender { sender: msg.sender })?;
+        log::info!(target: "rounds", "BROADCAST [{}]received msg from {} (party {})", self.party_i, msg.sender, party_j);
+        if slot.is_some() {
+            return Err(StoreErr::MsgOverwrite);
+        }
         *slot = Some(msg.body);
         self.msgs_left -= 1;
 

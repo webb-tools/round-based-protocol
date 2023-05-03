@@ -4,6 +4,9 @@ use thiserror::Error;
 #[derive(Debug, PartialEq, Error)]
 #[non_exhaustive]
 pub enum StoreErr {
+    /// Got message which was already received (no matter how similar they are)
+    #[error("got message which was already received")]
+    MsgOverwrite,
     /// Got message from unknown party
     #[error("unknown message sender: {sender}")]
     UnknownSender { sender: u16 },

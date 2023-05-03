@@ -151,6 +151,12 @@ where
             self.refresh_timer()?;
 
             if let Some(result) = self.finish_if_possible() {
+                // even this node finished, it is possible that other nodes are still running
+                for _ in 0..3 {
+                    tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+                    self.send_outgoing().await?;
+                }
+                
                 return result;
             }
         }
