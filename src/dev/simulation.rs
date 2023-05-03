@@ -1,5 +1,5 @@
-use std::fmt::Debug;
 use log::debug;
+use std::fmt::Debug;
 
 use crate::sm::*;
 
